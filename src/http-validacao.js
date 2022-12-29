@@ -1,38 +1,22 @@
-import chalk from "chalk";
+import chalk from 'chalk';
+import axios from 'axios';
 
-function extractLinks (arrLinks) {
-    return arrLinks.map((objectLink) => Object.values(objectLink).join())
+function extractLinks(text) {
+    const regex = /https?:\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))/gm;
+    let capturas = [...text.match(regex)];
+    checkStatus(capturas)
 }
 
-async function checkStatus(listaURLs) {
-    const arrStatus = await Promise
-        .all(
-        listaURLs.map(async (url) => {
-            try {
-                const response = await fetch(url);
-                return `${response.status} - ${response.statusText}`;
-            } catch (erro) {
-                return treatError(erro);
-            }
-        })
-    )
-    return arrStatus;
-}
-
-function treatError(erro) {
-    if(erro.cause.code === 'ENOTFOUND') {
-        return 'link não encontrado'
-    } else {
-        return 'ocorreu algum erro'
+async function checkStatus(urlArr) {
+    for (const url of urlArr) {
+        const response = await fetch(url);
+        if (response.status === 200) {
+            console.log(chalk.blue(`Link:`),chalk.white(`${url}`),chalk.green(`- ${response.status} - ${response.statusText}`));
+        } else {
+            console.log(chalk.blue(`Link:`),chalk.white(`${url}`),chalk.red(`- ${response.status} - ${response.statusText}`));
+        }
     }
+    console.log(chalk.yellow('Fim do Carregamento.'));
 }
 
-export default async function validList(linksList) {
-    const links = extractLinks(linksList);
-    const status = await checkStatus(links);
-    return linksList.map((object, indice) => ({
-        ...object, 
-        status: status[indice]
-    }))
-}
-
+export default extractLinks;

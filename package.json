@@ -1,27 +1,17 @@
 {
-  "name": "validate-urls",
+  "name": "teste_importa_url",
   "version": "1.0.0",
-  "description": "validates a URL and returns the status code and message",
+  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "cli": "node src/cli.js ./arquivos/texto.md",
-    "cli:valida": "node src/cli.js ./arquivos/texto.md --valida"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/alura-cursos/2708-node-lib-md.git"
-  },
-  "keywords": ["URL", "status", "link"],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/alura-cursos/2708-node-lib-md/issues"
-  },
-  "homepage": "https://github.com/alura-cursos/2708-node-lib-md#readme",
   "dependencies": {
-    "chalk": "5.0.1",
-    "nvm": "^0.0.4"
+    "axios": "^1.2.1",
+    "chalk": "^5.2.0",
+    "nvm": ""
   }
 }
